@@ -1,0 +1,35 @@
+cabal-version:      3.0
+name:               adventofcode2021
+version:            0.1.0.0
+synopsis:           Some advent of Code 2021 solutions
+license:            MIT
+license-file:       LICENSE
+author:             Erlend Pedersen
+maintainer:         erlendpe@online.no
+copyright:          Erlend Pedersen 2021
+category:           Toy
+
+source-repository head
+    type: git
+    location: https://github.com/plutotulp/adventofcode2021.git
+
+common def
+    default-language: Haskell2010
+    build-depends: base ^>=4.14.3.0
+    default-extensions: DeriveGeneric
+    ghc-options: -Wall
+
+library
+    import: def
+    hs-source-dirs: lib
+    exposed-modules: Meh
+    -- other-modules:
+
+executable aoc21
+    import: def
+    hs-source-dirs: app
+    main-is: Main.hs
+    other-modules: Config
+    build-depends: adventofcode2021
+                 , optparse-applicative
+    ghc-options: -threaded -rtsopts=all
