@@ -49,7 +49,7 @@ config = let
     [ short 't'
     , long "task"
     , metavar "TASK"
-    , help "Either test or run"
+    , help "Either test, run1 or run2"
     ]
   inputFile' =
     option (fmap Just str) $ mconcat

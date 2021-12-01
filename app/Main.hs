@@ -20,7 +20,7 @@ run cfg =
   maybe err runSetup mkSetup
   where
     mkSetup = Task.toDoTask (task cfg) (inputFile cfg)
-    err = error "Bad input, fix config parser to react sooner, plz"
+    err = error "Missing input file, fix config parser to react sooner, plz"
     runSetup doTask =
       case day cfg of
         1 -> Day01.main doTask
