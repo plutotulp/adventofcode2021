@@ -16,13 +16,28 @@ source-repository head
 common def
     default-language: Haskell2010
     build-depends: base ^>=4.14.3.0
+                 , containers
+                 , hspec
+                 , hspec-core
+                 , hspec-megaparsec
+                 , interpolatedstring-perl6
+                 , megaparsec
+                 , text
     default-extensions: DeriveGeneric
+                      , DerivingStrategies
+                      , DerivingVia
+                      , FlexibleContexts
+                      , LambdaCase
+                      , OverloadedStrings
+                      , QuasiQuotes
     ghc-options: -Wall
 
 library
     import: def
     hs-source-dirs: lib
-    exposed-modules: Meh
+    exposed-modules: Day01
+                   , Parsers
+                   , Task
     -- other-modules:
 
 executable aoc21

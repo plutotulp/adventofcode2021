@@ -1,10 +1,11 @@
 module Main where
 
-import Options.Applicative
-
-import qualified Meh
+import Options.Applicative (execParser, info, (<**>), fullDesc, progDesc, header, helper)
 
 import Config
+
+import qualified Task
+import qualified Day01
 
 main :: IO ()
 main = run =<< execParser opts
@@ -15,5 +16,12 @@ main = run =<< execParser opts
         <> header "aoc21" )
 
 run :: Config -> IO ()
-run _cfg = do
-  putStrLn Meh.meh
+run cfg =
+  maybe err runSetup mkSetup
+  where
+    mkSetup = Task.toDoTask (task cfg) (inputFile cfg)
+    err = error "Bad input, fix config parser to react sooner, plz"
+    runSetup doTask =
+      case day cfg of
+        1 -> Day01.main doTask
+        _ -> error "missing impl"
