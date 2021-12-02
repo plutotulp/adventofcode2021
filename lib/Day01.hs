@@ -68,7 +68,7 @@ parser2 = do
     _ -> fail "Too little input! Expected at least four depth measurements."
 
 -- | Count the number of times the values in the input list increase
--- from the previous value. Assumes at least one entry in the list.
+-- from the previous value. Assumes at least two entries in the list.
 numIncreases :: [Int] -> Int
 numIncreases ds = sum (bool 0 1 <$> zipWith (<) ds (tail ds))
 
