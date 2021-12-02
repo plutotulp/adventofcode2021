@@ -20,8 +20,6 @@
           hp.hlint
           hp.ghcid
           hp.cabal-install
-          hp.brittany
-          pkgs.vscode-fhsWithPackages [ pkgs.vscode-extensions.haskell ]
         ];
         inputsFrom = builtins.attrValues self.packages.${system};
       };
