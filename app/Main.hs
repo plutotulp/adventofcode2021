@@ -6,6 +6,7 @@ import Config
 
 import qualified Task
 import qualified Day01
+import qualified Day02
 
 main :: IO ()
 main = run =<< execParser opts
@@ -24,4 +25,5 @@ run cfg =
     runSetup doTask =
       case day cfg of
         1 -> Day01.main doTask
+        2 -> Day02.main doTask
         _ -> error "missing impl"

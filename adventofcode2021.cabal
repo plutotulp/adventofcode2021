@@ -17,17 +17,21 @@ common def
     default-language: Haskell2010
     build-depends: base ^>=4.14.3.0
                  , containers
+                 , generic-lens
                  , hspec
                  , hspec-core
                  , hspec-megaparsec
                  , interpolatedstring-perl6
+                 , lens
                  , megaparsec
                  , text
+                 , transformers
     default-extensions: DeriveGeneric
                       , DerivingStrategies
                       , DerivingVia
                       , FlexibleContexts
                       , LambdaCase
+                      , OverloadedLabels
                       , OverloadedStrings
                       , QuasiQuotes
     ghc-options: -Wall
@@ -36,6 +40,7 @@ library
     import: def
     hs-source-dirs: lib
     exposed-modules: Day01
+                   , Day02
                    , Parsers
                    , Task
     -- other-modules:

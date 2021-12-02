@@ -3,6 +3,7 @@ module Parsers
   , parseFileOrErr
   , runWithParsedInput
   , decimal
+  , symbol
   ) where
 
 import Data.Text (Text)
@@ -23,3 +24,6 @@ runWithParsedInput inputFile parser = (Parsers.parseFileOrErr parser inputFile >
 
 decimal :: Parser Int
 decimal = L.lexeme space L.decimal
+
+symbol :: Text -> Parser Text
+symbol = L.symbol space
