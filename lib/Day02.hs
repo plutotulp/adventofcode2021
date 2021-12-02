@@ -52,30 +52,30 @@ parseNavCmd = fwd' <|> down' <|> up'
     down' = Down    <$> p "down"
     up'   = Up      <$> p "up"
 
-parser :: Parsers.Parser [NavCmd]
+parser :: Parsers.Parser Course
 parser = space *> some parseNavCmd
 
-data Loc =
-  Loc
+data Submarine =
+  Submarine
   { depth :: !Int
   , horizontalPos :: !Int
   , aim :: !Int
   }
   deriving (Generic, Show)
 
-startLoc :: Loc
-startLoc = Loc { depth = 0, horizontalPos = 0, aim = 0 }
+startSubmarine :: Submarine
+startSubmarine = Submarine { depth = 0, horizontalPos = 0, aim = 0 }
 
-followCourse1 :: Loc -> Course -> Loc
-followCourse1 loc0 ncs = execState (traverse_ step ncs) loc0
+followCourse1 :: Submarine -> Course -> Submarine
+followCourse1 sub0 ncs = execState (traverse_ step ncs) sub0
   where
     step = \case
       Down    n -> #depth += n
       Up      n -> #depth -= n
       Forward n -> #horizontalPos += n
 
-followCourse2 :: Loc -> Course -> Loc
-followCourse2 loc0 ncs = execState (traverse_ step ncs) loc0
+followCourse2 :: Submarine -> Course -> Submarine
+followCourse2 sub0 ncs = execState (traverse_ step ncs) sub0
   where
     step = \case
       Down    n -> #aim += n
@@ -84,8 +84,8 @@ followCourse2 loc0 ncs = execState (traverse_ step ncs) loc0
                       a <- use #aim
                       #depth += a * n
 
-checksum :: Loc -> Int
-checksum loc = loc ^. #depth * loc ^. #horizontalPos
+checksum :: Submarine -> Int
+checksum sub = sub ^. #depth * sub ^. #horizontalPos
 
 test :: IO ()
 test = Task.hspec $ do
@@ -94,21 +94,21 @@ test = Task.hspec $ do
       parse parser "" exampleInput `shouldParse` exampleInputVals
   describe "logic" $ do
     it "understands the first example" $
-      checksum (followCourse1 startLoc exampleInputVals) == 150
+      checksum (followCourse1 startSubmarine exampleInputVals) == 150
     it "understands the second example" $
-      checksum (followCourse2 startLoc exampleInputVals) == 900
+      checksum (followCourse2 startSubmarine exampleInputVals) == 900
 
 run1 :: Course -> IO ()
 run1 ncs =
   TextIO.putStrLn [qc|Following the course yields checksum {chk}|]
   where
-    chk = checksum (followCourse1 startLoc ncs)
+    chk = checksum (followCourse1 startSubmarine ncs)
 
 run2 :: Course -> IO ()
 run2 ncs =
   TextIO.putStrLn [qc|Following the course yields checksum {chk}|]
   where
-    chk = checksum (followCourse2 startLoc ncs)
+    chk = checksum (followCourse2 startSubmarine ncs)
 
 main :: Task.Main
 main = Task.mkParsedMain test (parser, run1) (parser, run2)
