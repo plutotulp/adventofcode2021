@@ -1,5 +1,6 @@
 module Day01
   ( main
+  , test
   ) where
 
 import Data.Text (Text)
