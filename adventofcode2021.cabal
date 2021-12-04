@@ -24,9 +24,13 @@ common def
                  , interpolatedstring-perl6
                  , lens
                  , megaparsec
+                 , primitive
+                 , QuickCheck
                  , text
                  , transformers
-    default-extensions: DeriveGeneric
+                 , vector
+    default-extensions: BinaryLiterals
+                      , DeriveGeneric
                       , DerivingStrategies
                       , DerivingVia
                       , FlexibleContexts
@@ -34,6 +38,8 @@ common def
                       , OverloadedLabels
                       , OverloadedStrings
                       , QuasiQuotes
+                      , ScopedTypeVariables
+                      , TypeApplications
     ghc-options: -Wall
 
 library
@@ -41,6 +47,7 @@ library
     hs-source-dirs: lib
     exposed-modules: Day01
                    , Day02
+                   , Day03
                    , Parsers
                    , Task
     -- other-modules:
