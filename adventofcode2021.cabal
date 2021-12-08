@@ -34,12 +34,14 @@ common def
                       , DerivingStrategies
                       , DerivingVia
                       , FlexibleContexts
+                      , GADTs
                       , LambdaCase
                       , OverloadedLabels
                       , OverloadedStrings
                       , QuasiQuotes
                       , ScopedTypeVariables
                       , TypeApplications
+                      , ViewPatterns
     ghc-options: -Wall
 
 library
@@ -48,6 +50,7 @@ library
     exposed-modules: Day01
                    , Day02
                    , Day03
+                   , Day04
                    , Parsers
                    , Task
     -- other-modules:

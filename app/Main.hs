@@ -8,6 +8,7 @@ import qualified Task
 import qualified Day01
 import qualified Day02
 import qualified Day03
+import qualified Day04
 
 main :: IO ()
 main = run =<< execParser opts
@@ -24,8 +25,10 @@ run cfg =
     mkSetup = Task.toDoTask (task cfg) (inputFile cfg)
     err = error "Missing input file, fix config parser to react sooner, plz"
     runSetup doTask =
-      case day cfg of
-        1 -> Day01.main doTask
-        2 -> Day02.main doTask
-        3 -> Day03.main doTask
-        _ -> error "missing impl"
+      let f =  case day cfg of
+            1 -> Day01.main
+            2 -> Day02.main
+            3 -> Day03.main
+            4 -> Day04.main
+            _ -> error "missing impl"
+      in f doTask
