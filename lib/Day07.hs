@@ -51,6 +51,7 @@ fuelCostAt cost (fromIntegral -> h) = getSum . VG.foldMap f
 minFuelCost :: (Int -> Int -> Int) -> VU.Vector Word -> (Word, Int)
 minFuelCost f ps = minimumBy (comparing snd) posAndCosts
   where
+    posAndCosts :: [(Word, Int)]
     posAndCosts = (id &&& flip (fuelCostAt f) ps) <$> [pmin .. pmax]
     pmin = VG.minimum ps
     pmax = VG.maximum ps

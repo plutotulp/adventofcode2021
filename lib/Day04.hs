@@ -107,7 +107,7 @@ exampleInputVals = (drawn, boards)
 -- Has bingo in row 0
 exampleBingoMarks :: Marks
 exampleBingoMarks =
-  foldl step 0
+  foldl @[] step 0
   [ (0, 0)
   , (0, 1)
   , (0, 2)
@@ -126,7 +126,7 @@ exampleBingoMarks =
 -- Does not have bingo
 exampleNotBingoMarks :: Marks
 exampleNotBingoMarks =
-  foldl step 0
+  foldl @[] step 0
   [ (0, 0)
   , (0, 1)
   , (0, 2)

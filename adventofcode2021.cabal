@@ -29,7 +29,8 @@ common def
                  , text
                  , transformers
                  , vector
-    default-extensions: BinaryLiterals
+    default-extensions: ApplicativeDo
+                      , BinaryLiterals
                       , DeriveGeneric
                       , DerivingStrategies
                       , DerivingVia
@@ -37,7 +38,9 @@ common def
                       , GADTs
                       , LambdaCase
                       , OverloadedLabels
+                      , OverloadedLists
                       , OverloadedStrings
+                      , PatternSynonyms
                       , QuasiQuotes
                       , ScopedTypeVariables
                       , TupleSections
@@ -55,6 +58,7 @@ library
                    , Day05
                    , Day06
                    , Day07
+                   , Day08
                    , Parsers
                    , Task
     -- other-modules:

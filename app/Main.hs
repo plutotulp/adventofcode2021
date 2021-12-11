@@ -12,6 +12,7 @@ import qualified Day04
 import qualified Day05
 import qualified Day06
 import qualified Day07
+import qualified Day08
 
 main :: IO ()
 main = run =<< execParser opts
@@ -36,5 +37,6 @@ run cfg =
             5 -> Day05.main
             6 -> Day06.main
             7 -> Day07.main
+            8 -> Day08.main
             _ -> error "missing impl"
       in f doTask
