@@ -60,6 +60,7 @@ library
                    , Day07
                    , Day08
                    , Day09
+                   , Day10
                    , Parsers
                    , Task
     -- other-modules:
