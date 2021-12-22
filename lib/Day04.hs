@@ -76,7 +76,7 @@ markAt :: Marks -> Int -> Int -> Marks
 markAt marks' row col = mark marks' (offset row col)
 
 mark :: Marks -> Int -> Marks
-mark marks' offset' = setBit marks' offset'
+mark = setBit
 
 bingo :: Marks -> Bool
 bingo marks' = VG.or checked
@@ -163,7 +163,7 @@ markBoard board' number = maybe board' mark' lookupNum
     mark' offset' = board' & #marks %~ flip mark offset'
 
 markBoardsVector :: V.Vector Board -> Number -> V.Vector Board
-markBoardsVector boards number = V.map (flip markBoard number) boards
+markBoardsVector boards number = V.map (`markBoard` number) boards
 
 boardHasBingo :: Board -> Bool
 boardHasBingo = bingo . view #marks
@@ -183,15 +183,14 @@ fullGame (numbers, boards0) =
     go _    _ []               = []
     go _  bs0 _  | VG.null bs0 = []
     go seen0 bs0 (n:ns) =
-      let seen = seen0 ++ [n]
+      let scoredWinners = VG.map (\b -> (b, score n b)) ws
+          seen = seen0 ++ [n]
           -- bs are boards remaining in play after winners have been
           -- moved into ws.
           (ws, bs) = VG.partition boardHasBingo (markBoardsVector bs0 n)
-      in case VG.null ws of
-        True -> go seen bs ns
-        False  ->
-          let scoredWinners = VG.map (\b -> (b, score n b)) ws
-          in (scoredWinners, seen) : go seen bs ns
+          noWinners = VG.null ws
+          next = go seen bs ns
+      in if noWinners then next else (scoredWinners, seen) : next
 
 newtype Score = Score Word32
   deriving (Eq, Num, Show) via Word32

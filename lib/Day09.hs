@@ -112,7 +112,7 @@ lowPoints input@(sz, _) = filter (isLowPoint input) (range sz)
 lowPointRiskLevels :: Input -> [Word8]
 lowPointRiskLevels input@((nc, _), mp) = f <$> lowPoints input
   where
-    f p = 1 + mp VG.! (index nc p)
+    f p = 1 + mp VG.! index nc p
 
 totalLowPointRiskLevel  :: Input -> Word64
 totalLowPointRiskLevel =
@@ -212,7 +212,7 @@ popMaxval vec = do
   pure val
 
 basinsChecksum :: Input -> Word64
-basinsChecksum input = (s1 * s2 * s3)
+basinsChecksum input = s1 * s2 * s3
   where
     (s1, s2, s3) = runST $ do
       sz <- VG.unsafeThaw (basinSizes (basins input))

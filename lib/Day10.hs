@@ -133,7 +133,7 @@ scoreInputCompletions = middle . mapMaybe (score . check)
       Incomplete stk -> Just (scoreCompletion stk)
       _              -> Nothing
     middle ss =
-      head $ drop (length ss `div` 2) (sort ss)
+      sort ss !! (length ss `div` 2)
 
 test :: IO ()
 test = Task.hspec $ do

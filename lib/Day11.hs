@@ -3,7 +3,7 @@ module Day11
   , test
   ) where
 
-import Control.Monad (when)
+import Control.Monad (when, replicateM)
 import Control.Monad.ST (ST, runST)
 import Data.Char (digitToInt)
 import Data.Foldable (for_)
@@ -124,7 +124,7 @@ modelStep dims@(nc, _) es = do
     maybeZero loc val = when (9 < val) (VGM.write es loc 0)
 
 runModelSteps :: Int -> Dims -> VU.MVector s Word8 -> ST s Word64
-runModelSteps n dims es = fmap sum (sequence (replicate n (modelStep dims es)))
+runModelSteps n dims es = fmap sum (replicateM n (modelStep dims es))
 
 runModelStepsAndCountFlashes :: Int -> Input -> Word64
 runModelStepsAndCountFlashes n (dims, vals) = runST $ do

@@ -7,6 +7,7 @@ import Control.Lens
 
 import Control.Monad.ST (runST)
 import Data.Bits ((.|.), bit, popCount, testBit)
+import Data.Functor (($>))
 import Data.Generics.Labels ()
 import Data.List (permutations)
 import Data.Monoid (Sum(Sum, getSum))
@@ -103,13 +104,13 @@ exampleInputVals =
 
 parseSegment :: Parsers.Parser Segment
 parseSegment =
-  (char 'a' *> pure A) <|>
-  (char 'b' *> pure B) <|>
-  (char 'c' *> pure C) <|>
-  (char 'd' *> pure D) <|>
-  (char 'e' *> pure E) <|>
-  (char 'f' *> pure F) <|>
-  (char 'g' *> pure G)
+  (char 'a' $> A) <|>
+  (char 'b' $> B) <|>
+  (char 'c' $> C) <|>
+  (char 'd' $> D) <|>
+  (char 'e' $> E) <|>
+  (char 'f' $> F) <|>
+  (char 'g' $> G)
 
 parseDisplayDigit :: Parsers.Parser Digit
 parseDisplayDigit = mkDigit . VU.fromList <$> some parseSegment <* hspace
@@ -166,7 +167,7 @@ renderWiredDigit wires = renderDigit . wires
 
 renderWired :: Wires -> VU.Vector Digit -> Maybe [Word8]
 renderWired wires segs =
-  sequence $ (renderWiredDigit wires <$> VG.toList segs)
+  sequence (renderWiredDigit wires <$> VG.toList segs)
 
 -- >>> toDecimal [4,2,3,1]
 -- 4231
@@ -216,7 +217,7 @@ example1 = (wires, entry)
 -- All 5040 possible wirings.
 allWires :: V.Vector Wires
 allWires =
-  VG.fromList $ (mkWires' <$> permutations (VG.toList allSegmentBits))
+  VG.fromList (mkWires' <$> permutations (VG.toList allSegmentBits))
   where
     mkWires' :: [SegmentBit] -> Wires
     mkWires' cfg = mkWires (zip cfg (VG.toList allSegmentBits))
@@ -270,7 +271,7 @@ test = Task.hspec $ do
       let entry = snd example1
           ds = entry ^. #digits
           ws = findWires entry
-      flip renderWired ds <$> ws `shouldBe` (Just (Just [5,3,5,3]))
+      flip renderWired ds <$> ws `shouldBe` Just (Just [5,3,5,3])
 
     it "converts 10 to decimal" $ do
       toDecimal [1,0] `shouldBe` 10

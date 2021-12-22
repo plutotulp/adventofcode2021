@@ -44,8 +44,8 @@ next state = runST $ do
   VGM.modify acc (+nspawn) 8
   VG.freeze acc
 
-countAfter :: Int -> [Word] -> Word64
-countAfter days = VG.sum . head . drop days . iterate next . encode
+countAfter :: Word64 -> [Word] -> Word64
+countAfter days = VG.sum . (!! fromIntegral days) . iterate next . encode
 
 parser :: Parsers.Parser [Word]
 parser = space *> sepBy1 decimal comma
