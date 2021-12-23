@@ -17,6 +17,7 @@ common def
     default-language: Haskell2010
     build-depends: base ^>=4.14.3.0
                  , containers
+                 , foldl
                  , generic-lens
                  , hspec
                  , hspec-core
@@ -25,6 +26,7 @@ common def
                  , lens
                  , megaparsec
                  , primitive
+                 , profunctors
                  , QuickCheck
                  , text
                  , transformers
@@ -63,6 +65,7 @@ library
                    , Day10
                    , Day11
                    , Day12
+                   , Day13
                    , Parsers
                    , Task
     -- other-modules:
