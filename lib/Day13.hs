@@ -1,6 +1,7 @@
 module Day13
   ( main
   , test
+  , spec
   ) where
 
 import qualified Control.Foldl as L
@@ -16,7 +17,7 @@ import qualified Data.Text.IO as TextIO
 import qualified Data.Vector.Generic as VG
 import qualified Data.Vector.Generic.Mutable as VGM
 import qualified Data.Vector.Unboxed as VU
-import Test.Hspec (describe, it, shouldBe)
+import Test.Hspec (Spec, describe, it, shouldBe)
 import Test.Hspec.Megaparsec (shouldParse)
 import Text.InterpolatedString.Perl6 (q, qc)
 import Text.Megaparsec ((<|>), parse, some, single, chunk)
@@ -154,8 +155,10 @@ renderPoints pts | Set.null pts = ""
       (Set.toList pts)
 
 test :: IO ()
-test = Task.hspec $ do
+test = Task.hspec spec
 
+spec :: Spec
+spec = do
   describe "parser" $ do
 
     it "parses first example input" $

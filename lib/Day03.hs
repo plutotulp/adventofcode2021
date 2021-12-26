@@ -1,6 +1,7 @@
 module Day03
   ( main
   , test
+  , spec
   ) where
 
 import Control.Monad.Primitive (PrimMonad, PrimState)
@@ -13,7 +14,7 @@ import qualified Data.Vector.Generic.Mutable as VGM
 import qualified Data.Vector.Unboxed as VU
 import qualified Data.Vector.Unboxed.Mutable as VUM
 import Data.Word (Word16, Word32)
-import Test.Hspec (describe, it, shouldBe)
+import Test.Hspec (Spec, describe, it, shouldBe)
 import Test.Hspec.Megaparsec (shouldParse)
 import Text.InterpolatedString.Perl6 (q,qc)
 import Text.Megaparsec (some, parse)
@@ -156,7 +157,10 @@ lifeSupportRating nbits vals = fromIntegral co2 * fromIntegral oxy
     co2 = rating nbits vals co2ScrubberBitCriteria
 
 test :: IO ()
-test = Task.hspec $ do
+test = Task.hspec spec
+
+spec :: Spec
+spec = do
 
   describe "parser" $ do
 

@@ -78,3 +78,20 @@ executable aoc21
     build-depends: adventofcode2021
                  , optparse-applicative
     ghc-options: -threaded -rtsopts=all
+
+test-suite spec
+    import: def
+    type: exitcode-stdio-1.0
+    hs-source-dirs: test
+    main-is:        spec.hs
+    ghc-options: -threaded -rtsopts=all
+    build-depends: adventofcode2021
+
+test-suite doc
+    import: def
+    type: exitcode-stdio-1.0
+    hs-source-dirs: test
+    main-is:        doc.hs
+    ghc-options: -threaded -rtsopts=all
+    build-depends: adventofcode2021
+                 , doctest-parallel

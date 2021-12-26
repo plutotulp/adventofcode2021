@@ -11,8 +11,13 @@
       pkgs = nixpkgs.legacyPackages.${system};
       hp = pkgs.haskellPackages;
       name = "adventofcode2021";
+      dontCheck = pkgs.haskell.lib.dontCheck;
     in {
-      packages.${system}.${name} = hp.callCabal2nix name self {};
+      # Using dontCheck because the test suite includes doctests with
+      # doctest-parallel, which is not doing so well in nixpkgs at the
+      # moment (2021-12).
+      packages.${system}.${name} = dontCheck (hp.callCabal2nix name self {});
+
       defaultPackage.${system} = self.packages.${system}.${name};
       devShell.${system} = pkgs.mkShell {
         buildInputs = [

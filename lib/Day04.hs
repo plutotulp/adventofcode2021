@@ -1,6 +1,7 @@
 module Day04
   ( main
   , test
+  , spec
   ) where
 
 import Control.Lens
@@ -16,7 +17,7 @@ import qualified Data.Vector.Generic as VG
 import qualified Data.Vector.Unboxed as VU
 import Data.Word (Word32)
 import GHC.Generics (Generic)
-import Test.Hspec (describe, it, shouldBe)
+import Test.Hspec (Spec, describe, it, shouldBe)
 import Test.Hspec.Megaparsec (shouldParse)
 import Text.InterpolatedString.Perl6 (q,qc)
 import Text.Megaparsec (some, parse, count, sepBy1)
@@ -204,7 +205,10 @@ score lastDraw board' = sum unmarked' * fromIntegral lastDraw
     unmarked' = fromIntegral . snd <$> filter notMarked indexedVals
 
 test :: IO ()
-test = Task.hspec $ do
+test = Task.hspec spec
+
+spec :: Spec
+spec = do
 
   describe "parser" $ do
 

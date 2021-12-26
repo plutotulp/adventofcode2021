@@ -1,6 +1,7 @@
 module Day10
   ( main
   , test
+  , spec
   ) where
 
 import Data.List (sort)
@@ -8,7 +9,7 @@ import Data.Maybe (mapMaybe)
 import Data.Text (Text)
 import qualified Data.Text.IO as TextIO
 import Data.Word (Word64)
-import Test.Hspec (describe, it, shouldBe)
+import Test.Hspec (Spec, describe, it, shouldBe)
 import Test.Hspec.Megaparsec (shouldParse)
 import Text.InterpolatedString.Perl6 (q, qc)
 import Text.Megaparsec (label, parse, some, anySingle, try)
@@ -136,8 +137,10 @@ scoreInputCompletions = middle . mapMaybe (score . check)
       sort ss !! (length ss `div` 2)
 
 test :: IO ()
-test = Task.hspec $ do
+test = Task.hspec spec
 
+spec :: Spec
+spec = do
   describe "parser" $ do
 
     it "parses example input" $

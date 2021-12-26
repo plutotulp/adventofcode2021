@@ -1,6 +1,7 @@
 module Day07
   ( main
   , test
+  , spec
   ) where
 
 import Control.Arrow ((&&&))
@@ -11,7 +12,7 @@ import Data.Text (Text)
 import qualified Data.Text.IO as TextIO
 import qualified  Data.Vector.Generic as VG
 import qualified  Data.Vector.Unboxed as VU
-import Test.Hspec (describe, it, shouldBe)
+import Test.Hspec (Spec, describe, it, shouldBe)
 import Test.Hspec.Megaparsec (shouldParse)
 import Text.InterpolatedString.Perl6 (qc)
 import Text.Megaparsec (parse, sepBy1)
@@ -57,8 +58,10 @@ minFuelCost f ps = minimumBy (comparing snd) posAndCosts
     pmax = VG.maximum ps
 
 test :: IO ()
-test = Task.hspec $ do
+test = Task.hspec spec
 
+spec :: Spec
+spec = do
   describe "parser" $ do
 
     it "parses example input" $ do

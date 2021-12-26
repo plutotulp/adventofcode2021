@@ -1,6 +1,7 @@
 module Day05
   ( main
   , test
+  , spec
   ) where
 
 import Control.Lens
@@ -11,7 +12,7 @@ import Data.Text (Text)
 import qualified Data.Text.IO as TextIO
 import Data.Word (Word32)
 import GHC.Generics (Generic)
-import Test.Hspec (describe, it, shouldBe)
+import Test.Hspec (Spec, describe, it, shouldBe)
 import Test.Hspec.Megaparsec (shouldParse)
 import Text.InterpolatedString.Perl6 (q, qc)
 import Text.Megaparsec (some, parse)
@@ -141,8 +142,10 @@ numDangerousHorizVerOrDiagLines :: [Segment] -> Word32
 numDangerousHorizVerOrDiagLines = numDangerous range
 
 test :: IO ()
-test = Task.hspec $ do
+test = Task.hspec spec
 
+spec :: Spec
+spec = do
   describe "parser" $ do
 
     it "parses example input" $ do

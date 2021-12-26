@@ -1,12 +1,13 @@
 module Day01
   ( main
   , test
+  , spec
   ) where
 
 import Data.Text (Text)
 import Data.Bool (bool)
 import qualified Data.Text.IO as TextIO
-import Test.Hspec (describe, it)
+import Test.Hspec (Spec, describe, it)
 import Test.Hspec.Megaparsec (shouldParse)
 import Text.InterpolatedString.Perl6 (q, qc)
 import Text.Megaparsec (some, parse)
@@ -90,7 +91,10 @@ run2 depths = do
   TextIO.putStrLn [qc|Windowed depth increased {numIncreases (windowed depths)} times|]
 
 test :: IO ()
-test = Task.hspec $ do
+test = Task.hspec spec
+
+spec :: Spec
+spec = do
   describe "parser1" $ do
     it "parses example input" $
       parse parser1 "" exampleInput `shouldParse` exampleInputVals

@@ -1,6 +1,7 @@
 module Day02
   ( main
   , test
+  , spec
   ) where
 
 import Control.Lens
@@ -11,7 +12,7 @@ import Data.Generics.Labels ()
 import Data.Text (Text)
 import qualified Data.Text.IO as TextIO
 import GHC.Generics (Generic)
-import Test.Hspec (describe, it)
+import Test.Hspec (Spec, describe, it)
 import Test.Hspec.Megaparsec (shouldParse)
 import Text.InterpolatedString.Perl6 (q, qc)
 import Text.Megaparsec (some, parse, (<|>))
@@ -88,7 +89,10 @@ checksum :: Submarine -> Int
 checksum sub = sub ^. #depth * sub ^. #horizontalPos
 
 test :: IO ()
-test = Task.hspec $ do
+test = Task.hspec spec
+
+spec :: Spec
+spec = do
   describe "parser" $ do
     it "parses example input" $
       parse parser "" exampleInput `shouldParse` exampleInputVals

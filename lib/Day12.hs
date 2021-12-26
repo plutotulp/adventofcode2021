@@ -1,6 +1,9 @@
 module Day12
   ( main
   , test
+  , spec
+  , Node(..)
+  , (<->)
   ) where
 
 import Control.Monad (guard)
@@ -15,7 +18,7 @@ import qualified Data.Text as Text
 import qualified Data.Text.IO as TextIO
 import qualified  Data.Vector as V
 import qualified  Data.Vector.Generic as VG
-import Test.Hspec (describe, it, shouldBe)
+import Test.Hspec (Spec, describe, it, shouldBe)
 import Test.Hspec.Megaparsec (shouldParse)
 import Text.InterpolatedString.Perl6 (q, qc)
 import Text.Megaparsec (parse, some, takeWhile1P, single)
@@ -241,9 +244,11 @@ prettyPrintPath =  Text.intercalate "," . fmap showNode . toList
     showNode (Big   name) = name
     showNode (Small name) = name
 
-
 test :: IO ()
-test = Task.hspec $ do
+test = Task.hspec spec
+
+spec :: Spec
+spec = do
 
   describe "parser" $ do
 

@@ -1,6 +1,7 @@
 module Day09
   ( main
   , test
+  , spec
   ) where
 
 import Control.Monad (unless)
@@ -17,7 +18,7 @@ import qualified  Data.Vector.Generic as VG
 import qualified  Data.Vector.Generic.Mutable as VGM
 import qualified  Data.Vector.Unboxed as VU
 import Data.Word (Word8, Word64)
-import Test.Hspec (describe, it, shouldBe)
+import Test.Hspec (Spec, describe, it, shouldBe)
 import Test.Hspec.Megaparsec (shouldParse)
 import Text.InterpolatedString.Perl6 (q, qc)
 import Text.Megaparsec (parse, some, many)
@@ -219,8 +220,10 @@ basinsChecksum input = s1 * s2 * s3
       (,,) <$> popMaxval sz <*> popMaxval sz <*> popMaxval sz
 
 test :: IO ()
-test = Task.hspec $ do
+test = Task.hspec spec
 
+spec :: Spec
+spec = do
   describe "parser" $ do
 
     it "parses example input" $

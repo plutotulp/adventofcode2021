@@ -1,6 +1,7 @@
 module Day11
   ( main
   , test
+  , spec
   ) where
 
 import Control.Monad (when, replicateM)
@@ -16,7 +17,7 @@ import qualified  Data.Vector.Generic as VG
 import qualified  Data.Vector.Generic.Mutable as VGM
 import qualified  Data.Vector.Unboxed as VU
 import Data.Word (Word8, Word64)
-import Test.Hspec (describe, it, shouldBe)
+import Test.Hspec (Spec, describe, it, shouldBe)
 import Test.Hspec.Megaparsec (shouldParse)
 import Text.InterpolatedString.Perl6 (q, qc)
 import Text.Megaparsec (parse, some, many)
@@ -141,8 +142,10 @@ findFirstSynchronizedFlashStep (dims, vals) = runST $ do
   go 0
 
 test :: IO ()
-test = Task.hspec $ do
+test = Task.hspec spec
 
+spec :: Spec
+spec = do
   describe "parser" $ do
 
     it "parses example input" $

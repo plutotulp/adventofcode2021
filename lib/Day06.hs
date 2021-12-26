@@ -1,6 +1,7 @@
 module Day06
   ( main
   , test
+  , spec
   ) where
 
 import Control.Monad.ST (runST)
@@ -11,7 +12,7 @@ import qualified  Data.Vector.Generic as VG
 import qualified  Data.Vector.Generic.Mutable as VGM
 import qualified  Data.Vector.Unboxed as VU
 import Data.Word (Word64)
-import Test.Hspec (describe, it, shouldBe)
+import Test.Hspec (Spec, describe, it, shouldBe)
 import Test.Hspec.Megaparsec (shouldParse)
 import Text.InterpolatedString.Perl6 (qc)
 import Text.Megaparsec (parse, sepBy1)
@@ -54,8 +55,10 @@ parser = space *> sepBy1 decimal comma
     comma   = L.symbol space ","
 
 test :: IO ()
-test = Task.hspec $ do
+test = Task.hspec spec
 
+spec :: Spec
+spec = do
   describe "parser" $ do
 
     it "parses example input" $ do
