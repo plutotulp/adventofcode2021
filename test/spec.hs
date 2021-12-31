@@ -16,6 +16,7 @@ import qualified Day11
 import qualified Day12
 import qualified Day13
 import qualified Day14
+import qualified Day15
 
 main :: IO ()
 main = hspec $ parallel $ do
@@ -33,3 +34,4 @@ main = hspec $ parallel $ do
   context "day 12" Day12.spec
   context "day 13" Day13.spec
   context "day 14" Day14.spec
+  context "day 15" Day15.spec
