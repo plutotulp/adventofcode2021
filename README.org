@@ -1,0 +1,60 @@
+:PROPERTIES:
+:header-args: :exports both
+:END:
+#+TITLE: Some Advent of Code 2021 solutions
+
+* Prerequisites
+  A version of [[https://nixos.org/download.html][nix]] supporting [[https://nixos.wiki/wiki/Flakes][flakes]]. The ~flake.lock~ file locks
+  versions for all dependencies. ... well, except those required for
+  testing with ~cabal test~. The Haskell package doctest-parallel was
+  broken in nixpkgs at the time, so ~flake.nix~ just ignores tests.
+
+* Build and run
+  #+begin_src sh :results replace verbatim
+    nix run . -- --help
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  adventofcode2021
+
+  Usage: adventofcode2021 (-d|--day DAY) (-t|--task TASK) [-i|--input-file FILE]
+    Run Advent of Code solution for the chosen day
+
+  Available options:
+    -d,--day DAY             Day number (1-24)
+    -t,--task TASK           Either test, run1 or run2
+    -i,--input-file FILE     Puzzle input
+    -h,--help                Show this help text
+  #+end_example
+
+* Dev
+  :PROPERTIES:
+  :header-args:sh: :session adventofcode2021-dev
+  :END:
+
+  Step into shell with dependencies, like ghc, cabal and the Haskell
+  packages from ~adventofcode2021.cabal~
+  #+begin_src sh :results silent
+    nix develop
+  #+end_src
+
+  Hack away at lib/Day01.hs until it passes tests for that day.
+  #+begin_src sh :exports code :eval no
+    # Stays up, reloading when files change.
+    ghcid -T Day01.test
+  #+end_src
+
+  Alternatively, run full test suite with cabal.
+  #+begin_src sh :exports both :eval no
+    cabal test
+  #+end_src
+
+  Run the first task of the first day.
+  #+begin_src sh :results verbatim
+    cabal run exe:adventofcode2021 -- -d 1 -t run1 -i data/day01/example_input.txt
+  #+end_src
+
+  #+RESULTS:
+  : Up to date
+  : Depth increased 7 times
