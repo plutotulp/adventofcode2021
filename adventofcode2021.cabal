@@ -73,7 +73,7 @@ library
                    , Task
     -- other-modules:
 
-executable aoc21
+executable adventofcode2021
     import: def
     hs-source-dirs: app
     main-is: Main.hs

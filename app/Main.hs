@@ -27,7 +27,7 @@ main = run =<< execParser opts
     opts = info (config <**> helper)
       ( fullDesc
         <> progDesc "Run Advent of Code solution for the chosen day"
-        <> header "aoc21" )
+        <> header "adventofcode2021" )
 
 run :: Config -> IO ()
 run cfg =
